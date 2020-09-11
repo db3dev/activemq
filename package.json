@@ -1,0 +1,21 @@
+{
+  "name": "@db3dev/activemq",
+  "version": "1.0.0",
+  "description": "A client library for subscribing to and pushing messages through ActiveMQ for NodeJs. Supports Amazon MQ and a RPC protocol.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./dist && tsc"
+  },
+  "author": "Don Burgess",
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^5.4.2",
+    "uuid": "^3.3.3",
+    "ws": "^7.1.2"
+  }
+}

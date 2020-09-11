@@ -1,0 +1,28 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/listener.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:lib": "cd .. && npm run build && cd sample",
+    "build:sample": "rimraf ./dist && tsc",
+    "start:listener": "node ./dist/listener.js",
+    "start:publisher": "node ./dist/publisher.js",
+    "build": "npm run build:lib && npm run build:sample"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^6.6.2",
+    "@nestjs/core": "^6.6.2",
+    "@nestjs/microservices": "^6.6.2",
+    "@db3dev/activemq": "file:..",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.2"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0",
+    "typescript": "^3.5.3"
+  }
+}

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - 8161:8161
+      - 61614:61614
+    networks:
+      - activemq
+
+networks:
+  activemq:
+    name: activemq
+    driver: bridge
