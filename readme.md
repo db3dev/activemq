@@ -22,6 +22,8 @@
 **websocketExceptionCallback:** Function to call when Websocket Connection fails
 
 ## API
+When constructing the client object optionally a http.Agent interface can be passed in. This allows the support and configuration of a proxy server in the connection.
+
 **connect()** --- Triggers websocket and STOMP protocols to activate and maintain connection to message queue.
 
 **disconnect()** --- Triggers websocket and STOMP protocols to deactivate (close) and not attempt to maintain a connection to message queue.

@@ -1,5 +1,7 @@
 Object.assign(global, { WebSocket: require('ws') });
-import { Client as StompClient, Message, StompSubscription } from '@stomp/stompjs';
+import * as WS from 'ws';
+import { Agent } from 'http';
+import { Client as StompClient, Message, StompSubscription, Versions } from '@stomp/stompjs';
 import { ActiveMQConnectionConfig } from '../domain/activemq-connection.interface';
 import { EventEmitter } from 'events';
 import { MQClient } from '../domain/client.interface';
@@ -14,8 +16,17 @@ export class ActiveMQClient implements MQClient {
     private readonly disconnected = new EventEmitter();
     private readonly rpcListeners: {[replyTo:string]: StompSubscription} = {};
 
-    constructor(init: ActiveMQConnectionConfig) {
+    constructor(init: ActiveMQConnectionConfig, proxy?: Agent) {
         const uri = init.ssl ? `wss://${init.host}:${init.port}` : `ws://${init.host}:${init.port}`;
+        const wssFactory = () => {
+            if (!proxy) return;
+
+            const websocket = new WS(uri, { agent: proxy });
+            websocket.binaryType = 'arraybuffer';
+
+            return websocket;
+        }
+        
         this.client = new StompClient({
             brokerURL: uri,
             connectHeaders: {
@@ -31,7 +42,8 @@ export class ActiveMQClient implements MQClient {
                 } else {
                     return null;
                 }
-            }
+            },
+            webSocketFactory: proxy ? wssFactory : undefined
         });
 
         // Error Handling if Configured
